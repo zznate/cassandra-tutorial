@@ -3,21 +3,24 @@ create keyspace Tutorial
     and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 use Tutorial;
-
+# add default_validation_class for CLI play-nice
 create column family StateCity
     with comparator = IntegerType
+    default_validation_class = IntegerType
     and keys_cached = 10000
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
 
 create column family AreaCode
     with comparator = UTF8Type
+    default_validation_class = UTF8Type
     and keys_cached = 10000
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
 
 create column family Npanxx
-    with comparator = BytesType
+    with comparator = AsciiType
+    default_validation_class = UTF8Type
     and keys_cached = 10000
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
