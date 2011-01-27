@@ -24,7 +24,7 @@ public class GetSliceForNpanxx extends TutorialCommand {
     }
 
     @Override
-    public QueryResult<?> execute() {
+    public QueryResult<ColumnSlice<String,String>> execute() {
         SliceQuery<String, String, String> sliceQuery = 
             HFactory.createSliceQuery(keyspace, stringSerializer, stringSerializer, stringSerializer);
         sliceQuery.setColumnFamily("Npanxx");
@@ -38,5 +38,4 @@ public class GetSliceForNpanxx extends TutorialCommand {
         QueryResult<ColumnSlice<String, String>> result = sliceQuery.execute();
         return result;
     }
-
 }

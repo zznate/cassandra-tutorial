@@ -23,14 +23,16 @@ public class TutorialRunner {
         tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster);
         
         TutorialCommand command = loadCommand(args[0]);
-        
+        try {
         QueryResult<?> result = command.execute();
-        
+        // if result.get() instance of Rows, loop
         log.info("Result executed in: {} microseconds against host: {}",
                 result.getExecutionTimeMicro(), result.getHostUsed().getName());               
         
         log.info("Details of result:\n{}", result.get());
-        
+        } catch (Exception e) {
+            log.error("Problem executing command:",e);
+        }
         tutorialCluster.getConnectionManager().shutdown();
     }
     
@@ -40,6 +42,12 @@ public class TutorialRunner {
             return new GetCityForNpanxx(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_slice")) {
             return new GetSliceForNpanxx(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_range_slices")) {
+            return new GetRangeSlicesForStateCity(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_slice_acc")) {
+            return new GetSliceForAreaCodeCity(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_slice_sc")) {
+            return new GetSliceForStateCity(tutorialKeyspace);
         }
         return null;
     }
