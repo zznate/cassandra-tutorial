@@ -30,7 +30,7 @@ public class GetIndexedSlicesForCityState extends TutorialCommand {
     }
 
     @Override
-    public QueryResult<?> execute() {
+    public QueryResult<OrderedRows<String, String, String>> execute() {
         IndexedSlicesQuery<String, String, String> indexedSlicesQuery = 
             HFactory.createIndexedSlicesQuery(keyspace, stringSerializer, stringSerializer, stringSerializer);
         indexedSlicesQuery.setColumnFamily("Npanxx");

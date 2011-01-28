@@ -15,7 +15,11 @@ import org.slf4j.LoggerFactory;
  * This class simply looks at the provided args and attempts to find 
  * the matching sample class to execute. 
  * 
- * {@link QueryResult}s are logged to stdout (configured in log4j.properties). 
+ * {@link QueryResult}s are logged to stdout (configured in log4j.properties).
+ * 
+ * These tutorials are designed to be invoked through Maven via the
+ * maven-exec-plugin. Each class has the appropriate incantation for such 
+ * in the Javadoc comments. See the README for more details.
  * 
  * @author zznate
  */
@@ -26,6 +30,13 @@ public class TutorialRunner {
     static Keyspace tutorialKeyspace;
     
     /**
+     * Creates a Cluster with a bunch of defaults, generally matching the
+     * default configuration of Apache Cassandra.
+     * 
+     * For customization, see {@link CassandraHostConfigurator} and the 
+     * corresponding {@link HFactory#createCluster(String, CassandraHostConfigurator)}
+     * in Hector.
+     * 
      * @param args
      */
     public static void main(String[] args) {
@@ -34,29 +45,48 @@ public class TutorialRunner {
         tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster);
         
         TutorialCommand command = loadCommand(args[0]);
-        try {
-        QueryResult<?> result = command.execute();
+        if ( command != null ) {
+            try {
 
-        log.info("Result executed in: {} microseconds against host: {}",
-                result.getExecutionTimeMicro(), result.getHostUsed().getName());
-        
-        if ( result instanceof Rows ) {            
-            Rows<?,?,?> rows = (Rows)result.get();
-            for (Row row : rows) {
-                log.info("Retrieved Row: {}", row);
+                QueryResult<?> result = command.execute();
+
+                printResults(result);
+
+            } catch (Exception e) {
+                // Cow catcher. Feel free to explore exception types here.
+                // Most everything should be wrapped in a HectorException  
+                log.error("Problem executing command:",e);
             }
-        } else {
-            log.info("Details of result:\n{}", result.get());
         }
-        
-        
-        } catch (Exception e) {
-            log.error("Problem executing command:",e);
-        }
+        // NOTE: you can uncomment this line to leave the JVM running.
+        // This will allow you to look at JMX statistics of what you just
+        // did and get a feel for Hector's JMX integration.
         tutorialCluster.getConnectionManager().shutdown();
     }
     
     
+    @SuppressWarnings("unchecked")
+    private static void printResults(QueryResult<?> result) {
+        log.info("+-------------------------------------------------");
+        log.info("| Result executed in: {} microseconds against host: {}",                
+                result.getExecutionTimeMicro(), result.getHostUsed().getName());
+        log.info("+-------------------------------------------------");
+        // nicer display of Rows vs. HColumn or ColumnSlice
+        if ( result.get() instanceof Rows ) {            
+            Rows<?,?,?> rows = (Rows)result.get();
+            for (Row row : rows) {
+                log.info("| {}", row);
+            }
+        } else {
+            log.info("| Result: {}", result.get());
+        }
+        log.info("+-------------------------------------------------");
+    }
+    
+    /*
+     * Simple command lookup based on string. Returns null on a miss.
+     * Would be nice to have something fancier with enums at some point.
+     */
     private static TutorialCommand loadCommand(String cmd) {
         if ( cmd.equalsIgnoreCase("get")) {
             return new GetCityForNpanxx(tutorialKeyspace);
@@ -73,7 +103,8 @@ public class TutorialRunner {
         } else if ( cmd.equalsIgnoreCase("get_indexed_slices")) {
             return new GetIndexedSlicesForCityState(tutorialKeyspace);
         }
+        log.error(" ***OOPS! No match found for {}.", cmd);
         return null;
-    }
+    }   
 
 }
