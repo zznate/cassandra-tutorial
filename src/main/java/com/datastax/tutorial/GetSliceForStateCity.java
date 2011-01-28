@@ -30,7 +30,6 @@ public class GetSliceForStateCity extends TutorialCommand {
         sliceQuery.setKey("TX Austin");
         sliceQuery.setRange(202L, 204L, false, 5);
         QueryResult<ColumnSlice<Long, String>> result = sliceQuery.execute();
-
         return result;
     }
 
