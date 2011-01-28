@@ -1,21 +1,27 @@
+# Run this script with the following command from $CASSANDRA_HOME
+# bin/cassandra-cli --host localhost < npanxx_script.txt 
+# 
+drop keyspace Tutorial;
 create keyspace Tutorial
     with replication_factor = 1
     and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 
 use Tutorial;
-# add default_validation_class for CLI play-nice
+drop column family StateCity;
 create column family StateCity
     with comparator = LongType
     and keys_cached = 10000
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
 
+drop column family AreaCode;
 create column family AreaCode
     with comparator = UTF8Type
     and keys_cached = 10000
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
 
+drop column family Npanxx;
 create column family Npanxx
     with comparator = AsciiType
     and keys_cached = 10000
