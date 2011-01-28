@@ -48,6 +48,8 @@ public class TutorialRunner {
             return new GetSliceForAreaCodeCity(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_slice_sc")) {
             return new GetSliceForStateCity(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("multiget_slice")) {
+            return new MultigetSliceForNpanxx(tutorialKeyspace);
         }
         return null;
     }

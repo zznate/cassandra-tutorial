@@ -5,7 +5,18 @@ import me.prettyprint.hector.api.beans.Rows;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.MultigetSliceQuery;
 import me.prettyprint.hector.api.query.QueryResult;
+import me.prettyprint.hector.api.query.SliceQuery;
 
+/**
+ * Like {@link GetSliceForNpanxx}, but uses the multiget_slice to 
+ * apply the slice operation to mulitple keys
+ * 
+ * Thrift API: http://wiki.apache.org/cassandra/API#multiget_slice
+ * 
+ * To run this example from maven: 
+ * mvn -e exec:java -Dexec.args="multiget_slice" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"
+ * 
+ */
 public class MultigetSliceForNpanxx extends TutorialCommand {
 
     public MultigetSliceForNpanxx(Keyspace keyspace) {
