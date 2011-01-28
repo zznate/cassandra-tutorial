@@ -1,12 +1,12 @@
 package com.datastax.tutorial;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import me.prettyprint.cassandra.serializers.IntegerSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.query.QueryResult;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class TutorialCommand {
     
@@ -22,6 +22,6 @@ public abstract class TutorialCommand {
     
 
     static StringSerializer stringSerializer = StringSerializer.get();
-    static IntegerSerializer integerSerializer = IntegerSerializer.get();
+    static LongSerializer longSerializer = LongSerializer.get();
         
 }
