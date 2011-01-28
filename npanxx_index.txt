@@ -1,1 +1,3 @@
+use Tutorial;
+
 update column family Npanxx with column_metadata=[{column_name:state,validation_class:AsciiType,index_name:state_idx,index_type:0}]; 
