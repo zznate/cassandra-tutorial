@@ -21,4 +21,4 @@ Have a look at npanxx_script.txt for more details - the contents are fairly stra
 
 The sample data used in this tutorial is taken from the [North American Numbering Plan](http://en.wikipedia.org/wiki/North_American_Numbering_Plan)
 
-I got found my copy via [InfoChimps!](http://infochimps.com/datasets/area-code-and-exchange-to-location-north-america-npanxx). 
+I found my copy via [InfoChimps!](http://infochimps.com/datasets/area-code-and-exchange-to-location-north-america-npanxx). 
