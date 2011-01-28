@@ -4,3 +4,21 @@ This is a step-by-step tutorial designed to expose folks who might be new to Apa
 
 This tutorial assumes you have a release of Apache Cassandra version 0.7.x running on your machine accessible via localhost:9160 (the default). All necessary keyspace creation scripts and data inserts are included.
 
+Tutorial examples are designed to be run by Maven via the maven-exec-plugin. This makes dependency management a breeze (see the pom file!) and removes the need for goofy classpath maintenance scripts and such. An example of command invocation is in the Javadoc comment of each file. For example, to invoke the GetCityForNpanxx class, the following command should be used:
+
+> mvn -e exec:java -Dexec.args="get" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"
+
+To execute the schema creation and import script use the following:
+
+> bin/cassandra-cli --host localhost < npanxx_script.txt 
+
+This script creates a keyspace named 'Tutorial' and three column families:
+* StateCity: uses the state and city as a key. Column names are area codes, values are a concatenation of latitude and longitude
+* AreaCode: Uses the area code as a key, with the city ad NPA mapped to the latitude and longitude 
+* Npanxx: Key is NPA and NXX concatenation. Column names static in that each row has the same number and type of columns
+
+Have a look at npanxx_script.txt for more details - the contents are fairly straight forward. Even more so when you go through the tutorials.
+
+The sample data used in this tutorial is taken from the [North American Numbering Plan](http://en.wikipedia.org/wiki/North_American_Numbering_Plan)
+
+I got found my copy via (InfoChimps!)[http://infochimps.com/datasets/area-code-and-exchange-to-location-north-america-npanxx]. 
