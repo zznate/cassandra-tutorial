@@ -14,6 +14,7 @@ import me.prettyprint.hector.api.query.RangeSlicesQuery;
  * For more information, see: http://wiki.apache.org/cassandra/FAQ#range_rp
  * 
  * Thrift API: http://wiki.apache.org/cassandra/API#get_range_slices
+ * KeyRange: http://wiki.apache.org/cassandra/API#KeyRange
  * 
  * To run this example from maven: 
  * mvn -e exec:java -Dexec.args="get_range_slices" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"

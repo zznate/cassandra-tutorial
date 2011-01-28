@@ -11,6 +11,7 @@ import me.prettyprint.hector.api.query.QueryResult;
  * Uses @{@link HFactory} to construct a simple {@link ColumnQuery}
  * 
  * Thrift API: http://wiki.apache.org/cassandra/API#get
+ * API Column description: http://wiki.apache.org/cassandra/API#Column
  * 
  * To run this example from maven: 
  * mvn -e exec:java -Dexec.args="get" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"

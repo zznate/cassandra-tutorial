@@ -28,6 +28,7 @@ public class GetSliceForStateCity extends TutorialCommand {
             HFactory.createSliceQuery(keyspace, stringSerializer, longSerializer, stringSerializer);
         sliceQuery.setColumnFamily("StateCity");
         sliceQuery.setKey("TX Austin");
+        // change 'reversed' to true to get the columns in reverse order
         sliceQuery.setRange(202L, 204L, false, 5);
         QueryResult<ColumnSlice<Long, String>> result = sliceQuery.execute();
         return result;

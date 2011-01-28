@@ -17,6 +17,8 @@ import me.prettyprint.hector.api.query.QueryResult;
  * 
  * Thrift API: http://wiki.apache.org/cassandra/API#get_indexed_slices
  * 
+ * Additional information: http://www.datastax.com/blog/whats-new-cassandra-07-secondary-indexes
+ * 
  * To run this example from maven: 
  * mvn -e exec:java -Dexec.args="get_indexed_slices" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"
  * 

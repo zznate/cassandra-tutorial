@@ -12,6 +12,7 @@ import me.prettyprint.hector.api.query.SliceQuery;
  * {@link StringSerializer} defined in the parent class.
  * 
  * Thrift API: http://wiki.apache.org/cassandra/API#get_slice
+ * SlicePredicate: http://wiki.apache.org/cassandra/API#SlicePredicate
  * 
  * To run this example from maven: 
  * mvn -e exec:java -Dexec.args="get_slice" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"
