@@ -50,6 +50,8 @@ public class TutorialRunner {
             return new GetSliceForStateCity(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("multiget_slice")) {
             return new MultigetSliceForNpanxx(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_indexed_slices")) {
+            return new GetIndexedSlicesForCityState(tutorialKeyspace);
         }
         return null;
     }
