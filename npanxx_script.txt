@@ -1,6 +1,3 @@
-# Run this script with the following command from $CASSANDRA_HOME
-# bin/cassandra-cli --host localhost < npanxx_script.txt 
-# 
 drop keyspace Tutorial;
 create keyspace Tutorial
     with replication_factor = 1
@@ -28,7 +25,6 @@ create column family Npanxx
     and memtable_flush_after = 1440
     and memtable_throughput = 32;
 
-# grep -h -r 'TX Austin' npanxx99.txt 
 set StateCity['TX Austin']['202'] = '30.27x097.74';
 set StateCity['TX Austin']['203'] = '30.27x097.74';
 set StateCity['TX Austin']['204'] = '30.32x097.73';

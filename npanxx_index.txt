@@ -1,4 +1,1 @@
-# Run this script with the following command from $CASSANDRA_HOME
-# bin/cassandra-cli --host localhost < npanxx_index.txt 
-# 
 update column family Npanxx with column_metadata=[{column_name:state,validation_class:AsciiType,index_name:state_idx,index_type:0}]; 
