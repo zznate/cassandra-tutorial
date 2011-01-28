@@ -13,9 +13,11 @@ To execute the schema creation and import script use the following:
 > bin/cassandra-cli --host localhost < npanxx_script.txt 
 
 This script creates a keyspace named 'Tutorial' and three column families:
+
 * StateCity: uses the state and city as a key. Column names are area codes, values are a concatenation of latitude and longitude
 * AreaCode: Uses the area code as a key, with the city ad NPA mapped to the latitude and longitude 
 * Npanxx: Key is NPA and NXX concatenation. Column names static in that each row has the same number and type of columns
+
 
 Have a look at npanxx_script.txt for more details - the contents are fairly straight forward. Even more so when you go through the tutorials.
 
