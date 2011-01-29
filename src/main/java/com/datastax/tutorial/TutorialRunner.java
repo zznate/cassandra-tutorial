@@ -49,8 +49,8 @@ public class TutorialRunner {
             try {
 
                 QueryResult<?> result = command.execute();
-
-                printResults(result);
+                if ( result != null)
+                    printResults(result);
 
             } catch (Exception e) {
                 // Cow catcher. Feel free to explore exception types here.
@@ -102,6 +102,10 @@ public class TutorialRunner {
             return new MultigetSliceForNpanxx(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_indexed_slices")) {
             return new GetIndexedSlicesForCityState(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("insert")) {
+            return new InsertRowsForColumnFamilies(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("delete")) {
+            return new DeleteRowsForColumnFamily(tutorialKeyspace);
         }
         log.error(" ***OOPS! No match found for {}.", cmd);
         return null;
