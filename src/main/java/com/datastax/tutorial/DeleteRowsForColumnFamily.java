@@ -28,7 +28,8 @@ public class DeleteRowsForColumnFamily extends TutorialCommand {
         mutator.addDeletion("CA Burlingame", "StateCity", null, stringSerializer);
         mutator.addDeletion("650", "AreaCode", null, stringSerializer);
         mutator.addDeletion("650222", "Npanxx", null, stringSerializer);
-        
+        // adding a non-existent key like the following will cause the insertion of a tombstone
+        // mutator.addDeletion("652", "AreaCode", null, stringSerializer);
         MutationResult mr = mutator.execute();
         return null;
 
