@@ -43,6 +43,10 @@ public class TutorialRunner {
         tutorialCluster = HFactory.getOrCreateCluster("TestCluster", "localhost:9160");
 
         tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster);
+        // To modify the default ConsistencyLevel of QUORUM, create a 
+        // me.prettyprint.hector.api.ConsistencyLevelPolicy and use the overloaded form:
+        // tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster, consistencyLevelPolicy);
+        // see also me.prettyprint.cassandra.model.ConfigurableConsistencyLevelPolicy[Test] for details
         
         TutorialCommand command = loadCommand(args[0]);
         if ( command != null ) {
