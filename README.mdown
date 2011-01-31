@@ -1,6 +1,6 @@
 Overview
 ---------
-This is a step-by-step tutorial designed to expose folks who might be new to Apache Cassandra to some more real-world examples of usage. 
+This is a step-by-step tutorial designed to expose folks who might be new to Apache Cassandra to some more real-world examples of usage. This tutorial was initially put together [a presentation I made](http://www.slideshare.net/zznate/introduction-to-apachecassandrafordevelope) at Data Day Austin in late January of 2011. 
 
 This tutorial assumes you have a release of Apache Cassandra version 0.7.x running on your machine accessible via localhost:9160 (the default). All necessary keyspace creation scripts and data inserts are included.
 
