@@ -1,6 +1,8 @@
 package com.datastax.tutorial;
 
+import me.prettyprint.cassandra.model.ConfigurableConsistencyLevel;
 import me.prettyprint.hector.api.Cluster;
+import me.prettyprint.hector.api.HConsistencyLevel;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.beans.Row;
 import me.prettyprint.hector.api.beans.Rows;
@@ -23,11 +25,10 @@ import org.slf4j.LoggerFactory;
  * 
  * @author zznate
  */
-public class TutorialRunner {
+public class TutorialRunner extends TutorialBase {
     private static Logger log = LoggerFactory.getLogger(TutorialRunner.class); 
 
-    static Cluster tutorialCluster;
-    static Keyspace tutorialKeyspace;
+    
     
     /**
      * Creates a Cluster with a bunch of defaults, generally matching the
@@ -40,14 +41,8 @@ public class TutorialRunner {
      * @param args
      */
     public static void main(String[] args) {
-        tutorialCluster = HFactory.getOrCreateCluster("TestCluster", "localhost:9160");
+        init();
 
-        tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster);
-        // To modify the default ConsistencyLevel of QUORUM, create a 
-        // me.prettyprint.hector.api.ConsistencyLevelPolicy and use the overloaded form:
-        // tutorialKeyspace = HFactory.createKeyspace("Tutorial", tutorialCluster, consistencyLevelPolicy);
-        // see also me.prettyprint.cassandra.model.ConfigurableConsistencyLevelPolicy[Test] for details
-        
         TutorialCommand command = loadCommand(args[0]);
         if ( command != null ) {
             try {
