@@ -101,6 +101,8 @@ public class TutorialRunner extends TutorialBase {
             return new MultigetSliceForNpanxx(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_indexed_slices")) {
             return new GetIndexedSlicesForCityState(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_indexed_slices_raw")) {
+            return new GetIndexedSlicesHandleRawBytes(tutorialKeyspace);            
         } else if ( cmd.equalsIgnoreCase("insert")) {
             return new InsertRowsForColumnFamilies(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("delete")) {
