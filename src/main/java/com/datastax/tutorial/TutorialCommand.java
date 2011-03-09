@@ -3,6 +3,7 @@ package com.datastax.tutorial;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.Serializer;
 import me.prettyprint.hector.api.query.QueryResult;
 
@@ -32,7 +33,7 @@ public abstract class TutorialCommand {
      * @return {@link QueryResult} which is typed quite differently 
      * depending on the implementation 
      */
-    public abstract QueryResult<?> execute();
+    public abstract ResultStatus execute();
     
     static StringSerializer stringSerializer = StringSerializer.get();
     static LongSerializer longSerializer = LongSerializer.get();

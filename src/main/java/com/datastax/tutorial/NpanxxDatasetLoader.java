@@ -58,10 +58,12 @@ public class NpanxxDatasetLoader extends TutorialBase {
             }
             
             log.info("Found total: {}", total);
-            exec.shutdown();
+            
             log.info("duration in ms: {}",System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             log.error("Could not locate file",e);
+        } finally {
+            exec.shutdown();
         }
         tutorialCluster.getConnectionManager().shutdown();
     }

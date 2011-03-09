@@ -4,6 +4,7 @@ import me.prettyprint.cassandra.model.ConfigurableConsistencyLevel;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.HConsistencyLevel;
 import me.prettyprint.hector.api.Keyspace;
+import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.beans.Row;
 import me.prettyprint.hector.api.beans.Rows;
 import me.prettyprint.hector.api.factory.HFactory;
@@ -47,7 +48,7 @@ public class TutorialRunner extends TutorialBase {
         if ( command != null ) {
             try {
 
-                QueryResult<?> result = command.execute();
+                ResultStatus result = command.execute();
                 if ( result != null)
                     printResults(result);
 
@@ -65,19 +66,22 @@ public class TutorialRunner extends TutorialBase {
     
     
     @SuppressWarnings("unchecked")
-    private static void printResults(QueryResult<?> result) {
+    private static void printResults(ResultStatus result) {
         log.info("+-------------------------------------------------");
         log.info("| Result executed in: {} microseconds against host: {}",                
                 result.getExecutionTimeMicro(), result.getHostUsed().getName());
         log.info("+-------------------------------------------------");
         // nicer display of Rows vs. HColumn or ColumnSlice
-        if ( result.get() instanceof Rows ) {            
-            Rows<?,?,?> rows = (Rows)result.get();
-            for (Row row : rows) {
-                log.info("| {}", row);
+        if ( result instanceof QueryResult ) {
+            QueryResult<?> qr = (QueryResult)result;
+            if ( qr.get() instanceof Rows ) {            
+                Rows<?,?,?> rows = (Rows)qr.get();
+                for (Row row : rows) {
+                    log.info("| {}", row);
+                }
+            } else {
+                log.info("| Result: {}", qr.get());
             }
-        } else {
-            log.info("| Result: {}", result.get());
         }
         log.info("+-------------------------------------------------");
     }
@@ -107,6 +111,8 @@ public class TutorialRunner extends TutorialBase {
             return new InsertRowsForColumnFamilies(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("delete")) {
             return new DeleteRowsForColumnFamily(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("get_hcol")) {
+            return new GetNpanxxHColumnFamily(tutorialKeyspace);
         }
         log.error(" ***OOPS! No match found for {}.", cmd);
         return null;
