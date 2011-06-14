@@ -62,6 +62,7 @@ public class TutorialRunner extends TutorialBase {
         // This will allow you to look at JMX statistics of what you just
         // did and get a feel for Hector's JMX integration.
         tutorialCluster.getConnectionManager().shutdown();
+        System.exit(0);
     }
     
     
@@ -73,6 +74,7 @@ public class TutorialRunner extends TutorialBase {
         log.info("+-------------------------------------------------");
         // nicer display of Rows vs. HColumn or ColumnSlice
         if ( result instanceof QueryResult ) {
+          System.out.println(((QueryResult) result).get());
             QueryResult<?> qr = (QueryResult)result;
             if ( qr.get() instanceof Rows ) {            
                 Rows<?,?,?> rows = (Rows)qr.get();

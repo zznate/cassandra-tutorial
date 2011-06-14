@@ -35,6 +35,7 @@ public class GetCityForNpanxx extends TutorialCommand {
         columnQuery.setKey("512204");
         columnQuery.setName("city");
         QueryResult<HColumn<String, String>> result = columnQuery.execute();
+        
         return result;
     }
 
