@@ -1,8 +1,8 @@
 Overview
 ---------
-This is a step-by-step tutorial designed to expose folks who might be new to Apache Cassandra to some more real-world examples of usage. This tutorial was initially put together [a presentation I made](http://www.slideshare.net/zznate/introduction-to-apachecassandrafordevelope) at Data Day Austin in late January of 2011. 
+This is a step-by-step tutorial designed to expose folks who might be new to Apache Cassandra to some more real-world examples of usage. This tutorial was initially put together [a presentation I made](http://www.slideshare.net/zznate/introduction-to-apachecassandrafordevelope) at Data Day Austin in late January of 2011. It has been recently updated for Cassandra SF 2011.  
 
-This tutorial assumes you have a release of Apache Cassandra version 0.7.x running on your machine accessible via localhost:9160 (the default). All necessary keyspace creation scripts and data inserts are included.
+This tutorial assumes you have a release of Apache Cassandra version 0.8.x running on your machine accessible via localhost:9160 (the default). All necessary keyspace creation scripts and data inserts are included.
 
 Tutorial examples are designed to be run by Maven via the maven-exec-plugin. This makes dependency management a breeze (see the pom file!) and removes the need for goofy classpath maintenance scripts and such. An example of command invocation is in the Javadoc comment of each file. For example, to invoke the GetCityForNpanxx class, the following command should be used:
 
