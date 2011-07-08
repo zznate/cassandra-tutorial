@@ -10,7 +10,7 @@ Tutorial examples are designed to be run by Maven via the maven-exec-plugin. Thi
 
 To execute the schema creation and import script use the following:
 
-> bin/cassandra-cli --host localhost < npanxx_script.txt 
+> bin/cassandra-cli --host localhost < /path/to/script/npanxx_script.txt 
 
 This script creates a keyspace named 'Tutorial' and three column families:
 
