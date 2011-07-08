@@ -43,26 +43,26 @@ set AreaCode['512']['Austin__206'] = '30.32x097.73';
 set Npanxx['512202']['city'] = 'Austin';
 set Npanxx['512202']['state'] = 'TX';
 set Npanxx['512202']['lat'] = '30.27';
-set Npanxx['512202']['lng'] = '097.73';
+set Npanxx['512202']['lng'] = '097.74';
 
 set Npanxx['512203']['city'] = 'Austin';
 set Npanxx['512203']['state'] = 'TX';
 set Npanxx['512203']['lat'] = '30.27';
-set Npanxx['512203']['lng'] = '097.73';
+set Npanxx['512203']['lng'] = '097.74';
 
 set Npanxx['512204']['city'] = 'Austin';
 set Npanxx['512204']['state'] = 'TX';
 set Npanxx['512204']['lat'] = '30.32';
-set Npanxx['512204']['lng'] = '097.74';
+set Npanxx['512204']['lng'] = '097.73';
 
 set Npanxx['512205']['city'] = 'Austin';
 set Npanxx['512205']['state'] = 'TX';
 set Npanxx['512205']['lat'] = '30.32';
-set Npanxx['512205']['lng'] = '097.74';
+set Npanxx['512205']['lng'] = '097.73';
 
 set Npanxx['512206']['city'] = 'Austin';
 set Npanxx['512206']['state'] = 'TX';
 set Npanxx['512206']['lat'] = '30.32';
-set Npanxx['512206']['lng'] = '097.74';
+set Npanxx['512206']['lng'] = '097.73';
 
 
