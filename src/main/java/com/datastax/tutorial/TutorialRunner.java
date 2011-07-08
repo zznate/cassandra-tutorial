@@ -58,11 +58,10 @@ public class TutorialRunner extends TutorialBase {
                 log.error("Problem executing command:",e);
             }
         }
-        // NOTE: you can uncomment this line to leave the JVM running.
+        // NOTE: you can comment out this line to leave the JVM running.
         // This will allow you to look at JMX statistics of what you just
         // did and get a feel for Hector's JMX integration.
         tutorialCluster.getConnectionManager().shutdown();
-        System.exit(0);
     }
     
     

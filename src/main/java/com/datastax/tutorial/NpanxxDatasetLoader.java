@@ -89,10 +89,11 @@ public class NpanxxDatasetLoader extends TutorialBase {
                 // parse
                 npanxxLine = new NpanxxLine(row);
                 // 
-                mutator.addInsertion(npanxxLine.getNpa()+npanxxLine.getNxx(), "Npanxx", HFactory.createStringColumn("city", npanxxLine.getCity()));
-                mutator.addInsertion(npanxxLine.getNpa()+npanxxLine.getNxx(), "Npanxx", HFactory.createStringColumn("lat", Double.toString(npanxxLine.getLat())));
-                mutator.addInsertion(npanxxLine.getNpa()+npanxxLine.getNxx(), "Npanxx", HFactory.createStringColumn("lng", Double.toString(npanxxLine.getLng())));
-                mutator.addInsertion(npanxxLine.getNpa()+npanxxLine.getNxx(), "Npanxx", HFactory.createStringColumn("state", npanxxLine.getState()));
+                String key = npanxxLine.getNpa()+npanxxLine.getNxx();
+                mutator.addInsertion(key, "Npanxx", HFactory.createStringColumn("city", npanxxLine.getCity()));
+                mutator.addInsertion(key, "Npanxx", HFactory.createStringColumn("lat", Double.toString(npanxxLine.getLat())));
+                mutator.addInsertion(key, "Npanxx", HFactory.createStringColumn("lng", Double.toString(npanxxLine.getLng())));
+                mutator.addInsertion(key, "Npanxx", HFactory.createStringColumn("state", npanxxLine.getState()));
                 if ( count % 250 == 0 ) {
                     mutator.execute();
                     mutator.discardPendingMutations();
@@ -100,7 +101,6 @@ public class NpanxxDatasetLoader extends TutorialBase {
                 count++;
             }
             mutator.execute();
-            // TODO Auto-generated method stub
             log.info("found count {}", count);
             return Integer.valueOf(count);
         }
@@ -112,7 +112,6 @@ public class NpanxxDatasetLoader extends TutorialBase {
         
         NpanxxLine(String line) {
             vals = line.split("\\s");
-            //log.info("found vals: {}", vals[0]);            
         }
         
         String getNpa() {
