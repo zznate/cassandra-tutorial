@@ -13,6 +13,9 @@ import me.prettyprint.hector.api.query.QueryResult;
  * http://wiki.apache.org/cassandra/FAQ#range_ghosts
  * http://wiki.apache.org/cassandra/DistributedDeletes
  * 
+ * To run this example from maven:
+ * mvn -e exec:java -Dexec.args="delete" -Dexec.mainClass="com.datastax.tutorial.TutorialRunner"
+ * 
  * @author zznate
  */
 public class DeleteRowsForColumnFamily extends TutorialCommand {

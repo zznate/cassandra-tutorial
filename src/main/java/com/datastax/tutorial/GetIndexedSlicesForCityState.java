@@ -34,7 +34,7 @@ public class GetIndexedSlicesForCityState extends TutorialCommand {
         IndexedSlicesQuery<String, String, String> indexedSlicesQuery = 
             HFactory.createIndexedSlicesQuery(keyspace, stringSerializer, stringSerializer, stringSerializer);
         indexedSlicesQuery.setColumnFamily("Npanxx");
-        indexedSlicesQuery.setColumnNames("city","state","lat","lng");
+        indexedSlicesQuery.setColumnNames("city","lat","lng");
         indexedSlicesQuery.addEqualsExpression("state", "TX");
         indexedSlicesQuery.addEqualsExpression("city", "Austin");
         indexedSlicesQuery.addGteExpression("lat", "30.30");

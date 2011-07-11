@@ -28,7 +28,7 @@ public class MultigetSliceForNpanxx extends TutorialCommand {
             HFactory.createMultigetSliceQuery(keyspace, stringSerializer, stringSerializer, stringSerializer);
         multigetSlicesQuery.setColumnFamily("Npanxx");
         multigetSlicesQuery.setColumnNames("city","state","lat","lng");        
-        multigetSlicesQuery.setKeys("512202","512203","512204","512205");
+        multigetSlicesQuery.setKeys("512202","512203","512205","512206");
         QueryResult<Rows<String, String, String>> results = multigetSlicesQuery.execute();
         return results;
     }
