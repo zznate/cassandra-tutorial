@@ -7,26 +7,31 @@ use Tutorial;
 drop column family StateCity;
 create column family StateCity
     with comparator = LongType
-    and key_validation_class = 'UTF8Type'
-    and keys_cached = 10000
-    and memtable_flush_after = 1440
-    and memtable_throughput = 32;
+    and default_validation_class = 'UTF8Type'
+    and key_validation_class = 'UTF8Type';
+    
 
 drop column family AreaCode;
 create column family AreaCode
     with comparator = UTF8Type
-    and key_validation_class = 'UTF8Type'
-    and keys_cached = 10000
-    and memtable_flush_after = 1440
-    and memtable_throughput = 32;
+    and default_validation_class = 'UTF8Type'
+    and key_validation_class = 'UTF8Type';
 
 drop column family Npanxx;
 create column family Npanxx
     with comparator = AsciiType
+    and default_validation_class = 'UTF8Type'
+    and key_validation_class = 'UTF8Type';
+    
+create column family StateNpaIndexStatic
+    with comparator = 'CompositeType(UTF8Type,LongType,LongType)'
     and key_validation_class = 'UTF8Type'
-    and keys_cached = 10000
-    and memtable_flush_after = 1440
-    and memtable_throughput = 32;
+    and default_validation_class = 'UTF8Type';
+    
+create column family StateNpaIndexDynamic
+    with comparator = 'DynamicCompositeType(s=>UTF8Type,l=>LongType)'
+    and key_validation_class = 'UTF8Type'
+    and default_validation_class = 'UTF8Type';    
 
 set StateCity['TX Austin']['202'] = '30.27x097.74';
 set StateCity['TX Austin']['203'] = '30.27x097.74';
