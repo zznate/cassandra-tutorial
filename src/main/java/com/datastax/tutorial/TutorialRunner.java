@@ -1,10 +1,13 @@
 package com.datastax.tutorial;
 
+import java.util.Iterator;
+
 import me.prettyprint.cassandra.model.ConfigurableConsistencyLevel;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.HConsistencyLevel;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ResultStatus;
+import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.Row;
 import me.prettyprint.hector.api.beans.Rows;
 import me.prettyprint.hector.api.factory.HFactory;
@@ -75,11 +78,21 @@ public class TutorialRunner extends TutorialBase {
         if ( result instanceof QueryResult ) {
           System.out.println(((QueryResult) result).get());
             QueryResult<?> qr = (QueryResult)result;
-            if ( qr.get() instanceof Rows ) {            
+            if ( qr.get() instanceof Rows ) {
+                
                 Rows<?,?,?> rows = (Rows)qr.get();
+                
                 for (Row row : rows) {
-                    log.info("| {}", row);
+                  log.info("| Row key: {}", row.getKey());
+                  for ( Iterator iter = row.getColumnSlice().getColumns().iterator(); iter.hasNext();) {
+                    log.info("|   col: {}", iter.next());
+                  }
+                    
                 }
+            } else if ( qr.get() instanceof ColumnSlice ) {
+              for ( Iterator iter = ((ColumnSlice)qr.get()).getColumns().iterator(); iter.hasNext();) {
+                log.info("|   col: {}", iter.next());
+              }
             } else {
                 log.info("| Result: {}", qr.get());
             }
@@ -114,6 +127,12 @@ public class TutorialRunner extends TutorialBase {
             return new DeleteRowsForColumnFamily(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_hcol")) {
             return new GetNpanxxHColumnFamily(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("dyn_slice")) {
+            return new GetDynamicComparatorSlice(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("static_comp_index")) {
+            return new StaticCompositeIndex(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("dynamic_comp_index")) {
+            return new DynamicCompositeIndex(tutorialKeyspace);
         }
         log.error(" ***OOPS! No match found for {}.", cmd);
         return null;
