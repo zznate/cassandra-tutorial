@@ -127,8 +127,6 @@ public class TutorialRunner extends TutorialBase {
             return new DeleteRowsForColumnFamily(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("get_hcol")) {
             return new GetNpanxxHColumnFamily(tutorialKeyspace);
-        } else if ( cmd.equalsIgnoreCase("dyn_slice")) {
-            return new GetDynamicComparatorSlice(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("static_comp_index")) {
             return new StaticCompositeIndex(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("dynamic_comp_index")) {
