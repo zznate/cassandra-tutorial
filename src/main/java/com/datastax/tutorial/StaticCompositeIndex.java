@@ -2,10 +2,12 @@ package com.datastax.tutorial;
 
 import me.prettyprint.cassandra.model.HColumnImpl;
 import me.prettyprint.cassandra.serializers.CompositeSerializer;
+import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.Composite;
+import me.prettyprint.hector.api.beans.HColumn;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.QueryResult;
@@ -67,6 +69,16 @@ public class StaticCompositeIndex extends TutorialCommand {
     column.setName(dc);       
     column.setValue("TIME WARNER COMMUNICATIONS AXS OF AUSTIN, TX");
     mutator.addInsertion("TX:512", "StateNpaIndexStatic", column);
+
+        column = new HColumnImpl<Composite, String>(cs, stringSerializer);
+    column.setClock(keyspace.createClock());
+    dc = new Composite();
+    dc.add(0, "Aardvark");
+    dc.add(1, 5830L);
+    dc.add(2, 215L);
+    column.setName(dc);
+    column.setValue("Aardvark telco");
+    mutator.addInsertion("TX:512", "StateNpaIndexStatic", column);
     
     column = new HColumnImpl<Composite, String>(cs, stringSerializer);
     column.setClock(keyspace.createClock());
@@ -86,7 +98,7 @@ public class StaticCompositeIndex extends TutorialCommand {
     sliceQuery.setKey("TX:512");
 
     Composite startRange = new Composite();
-    startRange.add(0, "Austin");
+    startRange.add(0, "A");
     //startRange.add(1, 7516L);
     //startRange.addComponent(new Long(0), LongSerializer.get(), "LongType", AbstractComposite.ComponentEquality.GREATER_THAN_EQUAL);
     //startRange.addComponent(439L, LongSerializer.get(), "LongType", AbstractComposite.ComponentEquality.EQUAL);
@@ -94,14 +106,20 @@ public class StaticCompositeIndex extends TutorialCommand {
     //startRange.add(2, 439L);
     
     
-    Composite endRange = new Composite();    
-    endRange.add(0, "Austin" + Character.MAX_VALUE);
+    Composite endRange = new Composite();
+    //endRange.add(0, "Austin" + Character.MAX_VALUE);
+    endRange.add(0, "B");
     // the following statement is effectively identical for the purposes of restricting to 'Austin'
     //endRange.addComponent("Austin", StringSerializer.get(), "UTF8Type", AbstractComposite.ComponentEquality.GREATER_THAN_EQUAL);
     
     sliceQuery.setRange(startRange, endRange, false, 10);
 
     QueryResult<ColumnSlice<Composite, String>> result = sliceQuery.execute();
+    ColumnSlice<Composite, String> cs = result.get();
+    for ( HColumn<Composite, String> col: cs.getColumns() ) {
+      System.out.println(col.getName().getComponents());
+      System.out.println(col.getName().get(0, StringSerializer.get()));
+    }
     return result;
     
 

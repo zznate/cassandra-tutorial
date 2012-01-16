@@ -2,17 +2,11 @@ package com.datastax.tutorial;
 
 import java.util.Iterator;
 
-import me.prettyprint.cassandra.model.ConfigurableConsistencyLevel;
-import me.prettyprint.hector.api.Cluster;
-import me.prettyprint.hector.api.HConsistencyLevel;
-import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ResultStatus;
 import me.prettyprint.hector.api.beans.ColumnSlice;
 import me.prettyprint.hector.api.beans.Row;
 import me.prettyprint.hector.api.beans.Rows;
-import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.query.QueryResult;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +32,8 @@ public class TutorialRunner extends TutorialBase {
      * Creates a Cluster with a bunch of defaults, generally matching the
      * default configuration of Apache Cassandra.
      * 
-     * For customization, see {@link CassandraHostConfigurator} and the 
-     * corresponding {@link HFactory#createCluster(String, CassandraHostConfigurator)}
+     * For customization, see {@link me.prettyprint.cassandra.service.CassandraHostConfigurator} and the
+     * corresponding HFactory#createCluster(String, CassandraHostConfigurator)
      * in Hector.
      * 
      * @param args
@@ -131,6 +125,8 @@ public class TutorialRunner extends TutorialBase {
             return new StaticCompositeIndex(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("dynamic_comp_index")) {
             return new DynamicCompositeIndex(tutorialKeyspace);
+        } else if ( cmd.equalsIgnoreCase("comp_ranges_with_long")) {
+            return new CompositeRangesWithLong(tutorialKeyspace);
         }
         log.error(" ***OOPS! No match found for {}.", cmd);
         return null;

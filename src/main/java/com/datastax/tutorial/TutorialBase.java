@@ -10,9 +10,9 @@ import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.factory.HFactory;
 
 public class TutorialBase {
-    static Cluster tutorialCluster;
-    static Keyspace tutorialKeyspace;
-    static Properties properties;
+    protected static Cluster tutorialCluster;
+    protected static Keyspace tutorialKeyspace;
+    protected static Properties properties;
     
     protected static void init() {
         properties = new Properties();
