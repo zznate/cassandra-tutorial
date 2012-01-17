@@ -21,8 +21,10 @@ import me.prettyprint.hector.api.query.SliceQuery;
  * This class assumes you have created the CountryStateCity column family in the
  * Tutorial keyspace and have already run {@link CompositeDataLoader}
  *
- * @author zznate
+ * Execute this class with the following invocation from the project root:
  * mvn -e exec:java -Dexec.mainClass="com.datastax.tutorial.composite.CompositeQuery"
+
+ * @author zznate
  */
 public class CompositeQuery extends TutorialBase {
 
@@ -39,12 +41,7 @@ public class CompositeQuery extends TutorialBase {
     // Note the use of 'equal' and 'greater-than-equal' for the start and end.
     // this has to be the case when we want all 
     Composite start = compositeFrom(startArg, Composite.ComponentEquality.EQUAL);
-    Composite end = compositeFrom(startArg, Composite.ComponentEquality.GREATER_THAN_EQUAL);
-    //start.addComponent("WY",StringSerializer.get());
-    //start.addComponent("R",StringSerializer.get());
-    //end.addComponent("WY",StringSerializer.get());
-    //end.addComponent("S"+Character.MAX_VALUE,StringSerializer.get());
-    //end.addComponent(String.valueOf(Character.MAX_VALUE), StringSerializer.get());
+    Composite end = compositeFrom(startArg, Composite.ComponentEquality.EQUAL);
 
     compositeQuery.printColumnsFor(start,end);
 
@@ -71,7 +68,7 @@ public class CompositeQuery extends TutorialBase {
         );
       count++;
     }
-     
+    System.out.printf("Found %d columns\n",count);
   }
     
 

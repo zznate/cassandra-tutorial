@@ -23,6 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Multi-threaded bulk loader for geo data located in the data directory of the
+ * project root.
+ *
+ * Execute this class by invoking the following at the project root:
  * mvn -e exec:java -Dexec.mainClass="com.datastax.tutorial.composite.CompositeDataLoader"
  * @author zznate
  */
@@ -32,6 +36,7 @@ public class CompositeDataLoader extends TutorialBase {
   private static ExecutorService exec;
   // key for static composite, First row of dynamic composite
   public static final String COMPOSITE_KEY = "ALL";
+  public static final String COUNTRY_STATE_CITY_CF = "CountryStateCity";
 
   public static void main(String[] args) {
     long startTime = System.currentTimeMillis();
@@ -95,30 +100,34 @@ public class CompositeDataLoader extends TutorialBase {
         // parse
         geoDataLine = new GeoDataLine(row);
         // assemble the insertions
-        // first, the static composite
-        mutator.addInsertion(COMPOSITE_KEY, "CountryStateCity", geoDataLine.staticColumnFrom());
+        mutator.addInsertion(COMPOSITE_KEY, COUNTRY_STATE_CITY_CF, geoDataLine.staticColumnFrom());
         
         count++;
       }
       mutator.execute();
-      log.info("found count {}", count);
+      log.debug("Inserted {} columns", count);
       return Integer.valueOf(count);
     }
 
   }
 
+  /**
+   * This is probably overkill given the simplicity of the data, but is
+   * good practice for separation of concerns and encapsulation
+   */
   static class GeoDataLine {
+    public static final char SEPARATOR_CHAR = ',';
     private String[] vals = new String[10];
 
     GeoDataLine(String line) {
-      vals = StringUtils.split(StringEscapeUtils.unescapeCsv(line), ',');
+      vals = StringUtils.split(StringEscapeUtils.unescapeCsv(line), SEPARATOR_CHAR);
       log.debug("array size: {} for row: {}", vals.length, line);
     }
 
     /**
      * Creates an HColumn with a column name composite of the form:
-     *   ['country_code']:['admin1_code']:['asciiname'])
-     * and a value of ['name']
+     *   ['country_code']:['state]:['city name'])
+     * and a value of ['timezone']
      * @return
      */
     HColumn<Composite,String> staticColumnFrom() {
@@ -126,7 +135,8 @@ public class CompositeDataLoader extends TutorialBase {
       Composite composite = new Composite();
       composite.addComponent(getCountryCode(), StringSerializer.get());
       composite.addComponent(getAdmin1Code(), StringSerializer.get());
-      composite.addComponent(getAsciiName(), StringSerializer.get());
+      // extra un-escape to handle the case of "Washington, D.C." 
+      composite.addComponent(StringEscapeUtils.unescapeCsv(getAsciiName()), StringSerializer.get());
       HColumn<Composite,String> col =
         HFactory.createColumn(composite, getTimezone(), new CompositeSerializer(), StringSerializer.get());
       return col;
