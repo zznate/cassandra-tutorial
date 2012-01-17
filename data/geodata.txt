@@ -620,7 +620,7 @@
 "US,CT,Willimantic,America/New_York"
 "US,CT,Windham,America/New_York"
 "US,CT,Wolcott,America/New_York"
-"US,DC,""Washington, D. C."",America/New_York"
+"US,DC,"Washington, D. C.",America/New_York"
 "US,DE,Bear,America/New_York"
 "US,DE,Dover,America/New_York"
 "US,DE,Middletown,America/New_York"
