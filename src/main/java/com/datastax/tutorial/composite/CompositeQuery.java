@@ -41,7 +41,7 @@ public class CompositeQuery extends TutorialBase {
     // Note the use of 'equal' and 'greater-than-equal' for the start and end.
     // this has to be the case when we want all 
     Composite start = compositeFrom(startArg, Composite.ComponentEquality.EQUAL);
-    Composite end = compositeFrom(startArg, Composite.ComponentEquality.EQUAL);
+    Composite end = compositeFrom(startArg, Composite.ComponentEquality.GREATER_THAN_EQUAL);
 
     compositeQuery.printColumnsFor(start,end);
 
