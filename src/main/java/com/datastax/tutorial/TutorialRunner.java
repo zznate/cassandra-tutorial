@@ -125,9 +125,7 @@ public class TutorialRunner extends TutorialBase {
             return new StaticCompositeIndex(tutorialKeyspace);
         } else if ( cmd.equalsIgnoreCase("dynamic_comp_index")) {
             return new DynamicCompositeIndex(tutorialKeyspace);
-        } else if ( cmd.equalsIgnoreCase("comp_ranges_with_long")) {
-            return new CompositeRangesWithLong(tutorialKeyspace);
-        }
+        } 
         log.error(" ***OOPS! No match found for {}.", cmd);
         return null;
     }   
